@@ -3,12 +3,13 @@ class PostsController < ApplicationController
   http_basic_authenticate_with name: "dhh", password: "secret", except: [:index, :show]
 
   def new
+    @post = Post.new
   end
 
   def create
     # render text: params[:post].inspect
     # Above command will render only the text params from form
-     @post = Post.new(params[:post].permit(:title, :text))
+    @post = Post.new(params[:post].permit(:title, :text))
     if @post.save
       redirect_to @post
     else
